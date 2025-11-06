@@ -1,0 +1,9 @@
+pydantic
+instructor
+click
+rich
+python-dotenv
+pyyaml
+requests
+gradio
+pytest
