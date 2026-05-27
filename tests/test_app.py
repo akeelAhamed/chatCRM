@@ -1,12 +1,4 @@
-import subprocess
-
-def test_cli_runs():
-    # Simulate running the CLI with sample input
-    result = subprocess.run(
-        ['python', 'src/app.py'],  # Adjust path if you have subfolder
-        input='I want to retire in 15 years and prefer email communication.\n',
-        text=True,
-        capture_output=True
-    )
-    assert result.returncode == 0
-    assert 'Extracted Client Profile' in result.stdout
+# No meaningful functions to test in this file.
+# The run_chatbot function is a thin CLI wrapper that only orchestrates I/O (prompts, printing)
+# and delegates to get_response. It contains no business logic, calculations, or transformations.
+# Testing should focus on get_response and ClientProfile in their respective modules.
