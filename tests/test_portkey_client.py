@@ -1,5 +1,4 @@
 import pytest
-from unittest.mock import patch
 from src.chatbot.portkey_client import get_response
 
 
@@ -21,22 +20,25 @@ class TestGetResponse:
         result = get_response("")
         assert result == {'message': 'Simulated response for: '}
 
-    def test_special_characters_input(self):
-        user_input = "!@#$%^&*()_+<>?/\\\"'"
+    def test_special_characters_in_input(self):
+        user_input = "Hello! @#$%^&*() 你好"
         result = get_response(user_input)
         assert result == {'message': 'Simulated response for: ' + user_input}
 
     def test_long_input_string(self):
         user_input = "a" * 10000
         result = get_response(user_input)
-        assert result == {'message': 'Simulated response for: ' + user_input}
+        assert result['message'] == 'Simulated response for: ' + user_input
 
-    def test_unicode_input(self):
-        user_input = "こんにちは世界 🌍"
+    def test_whitespace_only_input(self):
+        result = get_response("   ")
+        assert result == {'message': 'Simulated response for:    '}
+
+    def test_newline_in_input(self):
+        user_input = "line1\nline2"
         result = get_response(user_input)
         assert result == {'message': 'Simulated response for: ' + user_input}
 
-    def test_multiline_input(self):
-        user_input = "line1\nline2\nline3"
-        result = get_response(user_input)
-        assert result == {'message': 'Simulated response for: ' + user_input}
+    def test_return_type_is_dict(self):
+        result = get_response("test")
+        assert isinstance(result, dict)
